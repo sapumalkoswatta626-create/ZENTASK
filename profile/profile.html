@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <link rel="stylesheet" href="profile.css" />
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <button class="iconBtn" id="backBtn">←</button>
+    <div class="topTitle">Profile</div>
+    <button class="iconBtn" id="editBtn">✎</button>
+  </div>
+
+  <div class="page">
+
+    <!-- 1) PROFILE HEADER -->
+    <div class="card profileHeader">
+      <div class="pfpWrap">
+        <img id="profilePic" class="pfp" src="../icon.png" alt="profile" />
+        <button class="pfpEdit" id="changePicBtn">+</button>
+      </div>
+
+      <div class="nameWrap">
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+    <div class="name" id="profileName">Your Name</div>
+    <button class="iconBtn small" id="editBtn" type="button">✎</button>
+  </div>
+  <div class="sub">Keep grinding 💪</div>
+</div>
+
+    <!-- 3) EXAM COUNTDOWN -->
+    <div class="card countdownCard">
+      <div class="cardTitle">Exam Countdown</div>
+
+      <div class="countdownBox">
+        <div class="countNum" id="daysLeft">--</div>
+        <div class="countText">Days left</div>
+      </div>
+
+      <div class="examRow">
+        <div class="examLabel">Exam Date</div>
+        <input type="date" id="examDate" class="examInput" />
+      </div>
+    </div>
+
+   <!-- 2) ACHIEVEMENTS (Collapsible) -->
+<div class="card achCard">
+
+  <div class="achHeader" id="achToggle">
+    <div class="achHeaderLeft">
+      <div class="cardTitle" style="margin:0;">Achievements</div>
+      <div class="achMiniText" id="achMiniText">0 completed</div>
+    </div>
+
+    <div class="achHeaderRight">
+      <span class="chev" id="achChev">▼</span>
+    </div>
+  </div>
+
+  <!-- Collapsed view: only icons -->
+  <div class="achCollapsed" id="achCollapsed">
+    <div class="achIconGrid" id="achDoneIcons">
+      <!-- JS inserts completed icons -->
+    </div>
+
+    <div class="achEmpty" id="achEmpty" style="display:none;">
+      No achievements yet
+    </div>
+  </div>
+
+  <!-- Expanded view: full details list -->
+  <div class="achExpanded hidden" id="achExpanded">
+    <div class="achList" id="achievementList"></div>
+  </div>
+
+</div>
+
+  </div>
+  <!-- Edit Name Modal -->
+<div class="modal hidden" id="nameModal">
+  <div class="modalBox">
+    <div class="modalTitle">Edit Profile Name</div>
+
+    <input type="text" id="nameInput" class="modalInput" placeholder="Enter your name" />
+
+    <div class="modalBtns">
+      <button class="mBtn ghost" id="cancelNameBtn">Cancel</button>
+      <button class="mBtn" id="saveNameBtn">Save</button>
+    </div>
+  </div>
+</div>
+<!-- Daily Satisfaction Tracker -->
+<div class="card satCard">
+
+  <div class="satHeader">
+    <div>
+      <div class="cardTitle" style="margin:0;">Study Satisfaction</div>
+      <div class="achMiniText">How was your study today?</div>
+    </div>
+    <div class="satToday" id="satTodayText">Not rated</div>
+  </div>
+
+  <div class="satEmojis" id="satEmojis">
+    <button class="satBtn" data-val="4">😍</button>
+    <button class="satBtn" data-val="3">🙂</button>
+    <button class="satBtn" data-val="2">😐</button>
+    <button class="satBtn" data-val="1">🙁</button>
+    <button class="satBtn" data-val="0">😭</button>
+  </div>
+
+  <!-- Month calendar -->
+  <div class="satCalendarHead">
+    <button class="iconBtn small" id="satPrev">‹</button>
+    <div class="satMonth" id="satMonthTitle">Month</div>
+    <button class="iconBtn small" id="satNext">›</button>
+  </div>
+
+  <div class="satWeekdays">
+    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+  </div>
+
+  <div class="satGrid" id="satGrid"></div>
+  <!-- Monthly Banner -->
+<div class="satBanner" id="satBanner">
+  This month you created your <b>0th</b> entry.
+</div>
+
+<!-- Stats -->
+<div class="satStats">
+  <div class="satStat">
+    <div class="statLabel">Average</div>
+    <div class="statValue" id="avgSat">--</div>
+  </div>
+  <div class="satStat">
+    <div class="statLabel">Mood</div>
+    <div class="statValue" id="topMood">--</div>
+  </div>
+  <div class="satStat">
+    <div class="statLabel">Streak</div>
+    <div class="statValue" id="satStreak">--</div>
+  </div>
+</div>
+
+</div>
+
+
+<!-- Motivation Modal -->
+<div class="modal hidden" id="motModal">
+  <div class="modalBox">
+    <div class="modalTitle">Hey 💛</div>
+    <div class="motText" id="motText">
+      You’ve been feeling low lately. Want to reset and bounce back tomorrow?
+    </div>
+
+    <div class="modalBtns">
+      <button class="mBtn ghost" id="motCloseBtn">Okay</button>
+      <button class="mBtn" id="motBoostBtn">Motivate me</button>
+    </div>
+  </div>
+</div>
+
+  <script src="profile.js"></script>
+</body>
+</html>

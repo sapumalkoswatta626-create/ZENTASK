@@ -1,0 +1,82 @@
+
+/* ================================ */
+/* ✅ AI Analysis Card              */
+/* ================================ */
+.aiIcon {
+  font-size: 22px;
+  animation: aiFloat 4s ease-in-out infinite;
+}
+
+@keyframes aiFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
+.aiContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.aiRow {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  
+  padding: 14px 16px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  
+  font-weight: 950;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.45;
+  
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .aiRow {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.aiMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.aiLabel {
+  font-size: 12px;
+  opacity: 0.65;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 800;
+}
+
+.aiBadge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.aiBadge.up { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.aiBadge.down { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.aiBadge.flat { background: rgba(122, 92, 255, 0.15); color: #7a5cff; }
+
+.aiQuote {
+  margin-top: 6px;
+  font-size: 13px;
+  font-style: italic;
+  opacity: 0.7;
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 10px;
+}

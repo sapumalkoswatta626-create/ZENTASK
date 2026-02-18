@@ -1,0 +1,111 @@
+:root{
+  --text: rgba(255,255,255,0.92);
+  --accent-glow: rgba(255, 69, 0, 0.6); /* Orange/Red glow color */
+}
+
+body{
+  margin: 0;
+  min-height: 100vh;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  background:
+    radial-gradient(900px 600px at 15% 10%, rgba(165, 94, 255, 0.35), transparent 60%),
+    radial-gradient(800px 500px at 85% 0%, rgba(255, 153, 0, 0.18), transparent 55%),
+    linear-gradient(180deg, #0b0b10, #050509);
+
+  color: var(--text);
+}
+
+.page{ padding: 26px 22px; }
+
+.title{
+  font-size: 32px; font-weight: 950; margin: 0;
+  letter-spacing: -0.6px; opacity: 0.92;
+}
+
+/* Buttons */
+.btnRow{ margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+.testBtn{
+  padding: 13px 18px; border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.10); cursor: pointer;
+  font-size: 14px; font-weight: 900; color: rgba(255,255,255,0.92);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+  transition: 0.2s ease;
+}
+.testBtn:active{ transform: scale(0.98); }
+.ghostBtn{ background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); }
+
+/* =========================
+   STREAK POPUP (CENTERED)
+========================= */
+
+.streak-popup{
+  position: fixed; inset: 0; z-index: 9999999;
+  display: grid; place-items: center;
+  padding: 22px;
+  opacity: 0; pointer-events: none;
+  transition: 0.25s ease;
+  background: rgba(0,0,0,0.2); /* Slight dimming of background */
+}
+
+.streak-popup.show{ opacity: 1; pointer-events: auto; }
+.hidden{ display: none; }
+
+/* Card */
+.streak-inner{
+  width: 100%; max-width: 420px; border-radius: 28px;
+  padding: 22px 18px 18px; text-align: center;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 153, 0, 0.26);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 26px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  position: relative; overflow: hidden;
+  transform: scale(0.92); transition: 0.25s ease;
+}
+
+.streak-popup.show .streak-inner{ transform: scale(1); }
+
+/* Glow Effects */
+.streak-inner::before{
+  content: ""; position: absolute; inset: -60px;
+  background: radial-gradient(circle at top left, rgba(255, 153, 0, 0.28), transparent 55%);
+  pointer-events: none; opacity: 0.9;
+}
+
+/* Icon Box */
+.streakIcon{
+  width: 76px; height: 76px; margin: 0 auto 10px;
+  display: grid; place-items: center;
+  border-radius: 26px; font-size: 40px;
+  background: rgba(255, 153, 0, 0.14);
+  border: 1px solid rgba(255, 153, 0, 0.22);
+  box-shadow: 0 16px 45px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  position: relative; z-index: 2;
+}
+
+/* --- FIRE ANIMATION LOGIC --- */
+
+/* 1. Define the pulse and glow */
+@keyframes fire-pulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 0px var(--accent-glow)); }
+  50% { transform: scale(1.15); filter: drop-shadow(0 0 15px var(--accent-glow)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--accent-glow)); }
+}
+
+/* 2. Apply it ONLY to the span inside the box so the border doesn't shake */
+.streakIcon span {
+  display: inline-block;
+  animation: fire-pulse 2s infinite ease-in-out;
+}
+
+/* Text Styles */
+.streak-title{ font-size: 18px; font-weight: 1000; letter-spacing: -0.4px; position: relative; z-index: 2; }
+.streak-sub{ margin-top: 4px; font-size: 13px; opacity: 0.78; font-weight: 700; position: relative; z-index: 2; }
+.streak-count{ margin-top: 14px; display: flex; justify-content: center; align-items: baseline; gap: 8px; position: relative; z-index: 2; }
+.count-num{ font-size: 52px; font-weight: 1000; letter-spacing: -1.2px; }
+.count-label{ font-size: 14px; opacity: 0.8; font-weight: 850; }
+.streak-quote{ margin-top: 14px; font-size: 14px; font-weight: 900; opacity: 0.86; line-height: 1.4; letter-spacing: 0.1px; position: relative; z-index: 2; }
+.streak-tip{ margin-top: 12px; font-size: 12px; opacity: 0.6; position: relative; z-index: 2; }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Streak Popup</title>
+  <link rel="stylesheet" href="streak.css">
+</head>
+<body>
+
+  <div class="page">
+    <h1 class="title">Streak Popup Test</h1>
+
+    <div class="btnRow">
+      <button id="btnWeekly" class="testBtn">🔥 Daily Streak Popup</button>
+      <button id="btnTasks" class="testBtn ghostBtn">🔥 Tasks Streak Popup</button>
+    </div>
+  </div>
+
+  <div id="streakPopup" class="streak-popup hidden" aria-hidden="true">
+    
+    <div class="streak-inner">
+      
+      <div class="streakIcon">🔥</div>
+
+      <div class="streak-title" id="streakTitle">Daily Streak 🔥</div>
+      <div class="streak-sub" id="streakSub">You stayed consistent today.</div>
+
+      <div class="streak-count">
+        <div class="count-num" id="streakNumber">0</div>
+        <div class="count-label" id="streakLabel">day streak</div>
+      </div>
+
+      <div class="streak-quote" id="streakQuote">
+        “Small progress is still progress.”
+      </div>
+
+      <div class="streak-tip">Tap anywhere to close</div>
+
+    </div>
+  </div>
+
+  <script src="streak.js"></script>
+</body>
+</html>

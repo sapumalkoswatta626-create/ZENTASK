@@ -1,0 +1,741 @@
+/* ===========================================================
+   ZENTASK Profile — profile.css (UPDATED SAFE VERSION)
+   ✅ Works inside Todo tab (embedded)
+   ✅ No global nukes / no navbar breaking
+   ✅ Scoped styles using .profileScope
+   =========================================================== */
+
+/* ✅ Custom Emoji Font (uses emoji.ttf in root) */
+@font-face {
+  font-family: "EmojiFont";
+  src: url("../emoji.ttf") format("truetype");
+  font-display: swap;
+}
+
+/* ===== Theme vars (same as MAIN UI) ===== */
+:root {
+  --bg: #f7f7fb;
+  --card: rgba(255, 255, 255, 0.70);
+  --text: #1a1b22;
+  --muted: rgba(26, 27, 34, 0.55);
+  --shadow: none;
+
+  --accent-1: #7a5cff;
+  --accent-2: #b7a6ff;
+
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.75);
+
+  --line: rgba(255, 255, 255, 0.75);
+  --green: #14f195;
+}
+
+/* Dark theme (same system used in main: data-theme="dark") */
+[data-theme="dark"] {
+  --bg: #0f1117;
+  --card: rgba(26, 28, 38, 0.55);
+  --text: #eef0ff;
+  --muted: rgba(238, 240, 255, 0.55);
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+
+  --glass: rgba(26, 28, 38, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.10);
+
+  --line: rgba(255, 255, 255, 0.10);
+  --green: #14f195;
+}
+
+/* ===========================================================
+   ✅ IMPORTANT: Scoped Reset
+   This prevents profile CSS from breaking Todo page / navbar
+   =========================================================== */
+
+.profileScope,
+.profileScope * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* ===== Profile scope background ONLY ===== */
+.profileScope {
+  overflow-x: hidden;
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background: transparent !important;
+
+  padding-bottom: 90px;
+  /* space for bottom nav */
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  /* ✅ Added breathing room between cards */
+}
+
+/* ===== Topbar (not used in embed but safe) ===== */
+.profileScope .topbar {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+[data-theme="dark"] .profileScope .topbar {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.profileScope .topTitle {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: .3px;
+}
+
+/* Icon Buttons */
+.profileScope .iconBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.profileScope .iconBtn:active {
+  transform: scale(0.96);
+}
+
+.profileScope .iconBtn.small {
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  font-size: 18px;
+}
+
+/* ===== Page ===== */
+.profileScope .page {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ===== Liquid Glass Card ===== */
+.profileScope .card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  padding: 16px;
+
+  backdrop-filter: blur(16px) saturate(1.25);
+  -webkit-backdrop-filter: blur(16px) saturate(1.25);
+}
+
+/* ===== Profile Header ===== */
+.profileScope .profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.profileScope .pfpWrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+}
+
+.profileScope .pfp {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  object-fit: cover;
+}
+
+[data-theme="dark"] .profileScope .pfp {
+  border: 2px solid rgba(255, 255, 255, 0.10);
+}
+
+.profileScope .pfpEdit {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text);
+
+  font-weight: 900;
+  font-size: 18px;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  font-family: "EmojiFont";
+}
+
+.profileScope .name {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.profileScope .sub {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ===== Countdown ===== */
+.profileScope .countdownCard .countdownBox {
+  margin-top: 12px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.14);
+  text-align: center;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+[data-theme="dark"] .profileScope .countdownCard .countdownBox {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.profileScope .countNum {
+  font-size: 42px;
+  font-weight: 1000;
+}
+
+.profileScope .countText {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.profileScope .examRow {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.profileScope .examLabel {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.profileScope .examInput {
+  padding: 10px 12px;
+  border-radius: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text);
+
+  outline: none;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+[data-theme="dark"] .profileScope .examInput {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== Titles ===== */
+.profileScope .cardTitle {
+  font-size: 15px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+/* ===== Achievements Collapsible ===== */
+.profileScope .achCard {
+  padding: 14px;
+}
+
+.profileScope .achHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.profileScope .achHeaderLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.profileScope .achMiniText {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.profileScope .chev {
+  font-size: 14px;
+  color: var(--muted);
+  transition: transform .2s ease;
+}
+
+.profileScope .chev.up {
+  transform: rotate(180deg);
+}
+
+.profileScope .achCollapsed {
+  margin-top: 12px;
+}
+
+.profileScope .achIconGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.profileScope .achDoneIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+
+
+  font-family: "EmojiFont";
+}
+
+[data-theme="dark"] .profileScope .achDoneIcon {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.profileScope .achEmpty {
+  color: var(--muted);
+  font-size: 13px;
+  padding: 10px 6px;
+}
+
+.profileScope .achExpanded {
+  margin-top: 12px;
+}
+
+.profileScope .achList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profileScope .achRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .profileScope .achRow {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.profileScope .achRowLeft {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.profileScope .achRowIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+
+
+  font-family: "EmojiFont";
+}
+
+[data-theme="dark"] .profileScope .achRowIcon {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.profileScope .achTexts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.profileScope .achBig {
+  font-size: 15px;
+  font-weight: 1000;
+  line-height: 1.1;
+}
+
+.profileScope .achSmall {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.2;
+}
+
+.profileScope .achCount {
+  font-size: 12px;
+  font-weight: 1000;
+  padding: 8px 10px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.10);
+
+  color: var(--muted);
+  flex: 0 0 auto;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.profileScope .achCount.done {
+  color: var(--green);
+  background: rgba(20, 241, 149, 0.12);
+  border: 1px solid rgba(20, 241, 149, 0.25);
+}
+
+.profileScope .hidden {
+  display: none !important;
+}
+
+/* ===== Satisfaction Tracker ===== */
+.profileScope .satHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.profileScope .satToday {
+  font-size: 12px;
+  font-weight: 1000;
+  padding: 8px 10px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--muted);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+[data-theme="dark"] .profileScope .satToday {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.profileScope .satEmojis {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.profileScope .satBtn {
+  flex: 1;
+  height: 52px;
+  border-radius: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 22px;
+
+  font-family: "EmojiFont";
+}
+
+[data-theme="dark"] .profileScope .satBtn {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.profileScope .satBtn.active {
+  border: 1px solid rgba(122, 92, 255, 0.55);
+  box-shadow: 0 0 0 4px rgba(122, 92, 255, 0.15);
+}
+
+.profileScope .satCalendarHead {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profileScope .satMonth {
+  font-weight: 1000;
+  font-size: 14px;
+  letter-spacing: .3px;
+  color: var(--text);
+}
+
+.profileScope .satWeekdays {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.profileScope .satGrid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.profileScope .satDay {
+  height: 52px;
+  border-radius: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  overflow: hidden;
+
+}
+
+[data-theme="dark"] .profileScope .satDay {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.profileScope .satDay .num {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.profileScope .satDay .emo {
+  font-size: 18px;
+  line-height: 1;
+  font-family: "EmojiFont";
+}
+
+.profileScope .satDay.today {
+  border: 1px solid rgba(122, 92, 255, 0.55);
+}
+
+.profileScope .satDay.empty {
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
+}
+
+/* Satisfaction banner */
+.profileScope .satBanner {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(122, 92, 255, 0.25);
+  background: rgba(122, 92, 255, 0.14);
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* Stats */
+.profileScope .satStats {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.profileScope .satStat {
+  padding: 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+  text-align: center;
+
+}
+
+[data-theme="dark"] .profileScope .satStat {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.profileScope .statLabel {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.profileScope .statValue {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 1000;
+  font-family: "EmojiFont" !important;
+}
+
+/* motivation text */
+.profileScope .motText {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ===== MODAL (Name popup reworked) ===== */
+.profileScope .modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 18px;
+}
+
+.profileScope .modalBox {
+  width: 100%;
+  max-width: 360px;
+  padding: 18px;
+
+  border-radius: 24px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+}
+
+[data-theme="dark"] .profileScope .modalBox {
+  background: rgba(26, 28, 38, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.profileScope .modalTitle {
+  font-size: 16px;
+  font-weight: 1000;
+  margin-bottom: 12px;
+}
+
+.profileScope .modalInput {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text);
+
+  outline: none;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+[data-theme="dark"] .profileScope .modalInput {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.profileScope .modalBtns {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.profileScope .mBtn {
+  padding: 11px 16px;
+  border-radius: 18px;
+  border: none;
+  font-weight: 1000;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+}
+
+.profileScope .mBtn:active {
+  transform: scale(0.98);
+}
+
+.profileScope .mBtn.ghost {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+[data-theme="dark"] .profileScope .mBtn.ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ✅ Force custom emoji font everywhere needed */
+.profileScope .satBtn,
+.profileScope .emo,
+.profileScope .achIcon,
+.profileScope .achRowIcon,
+.profileScope .achDoneIcon,
+.profileScope #todayMoodEmoji,
+.profileScope #moodEmoji,
+.profileScope .moodEmoji {
+  font-family: "EmojiFont" !important;
+}
+
+/* ✅ FIX: Modal always above everything + clickable */
+.profileScope .modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
+
+.profileScope .modalBox {
+  pointer-events: auto !important;
+}
+
+.profileScope .modal.hidden {
+  display: none !important;
+}

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#e7e3ff" />
+  <title>ZENTASK — Progress</title>
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="progress.css" />
+  <link rel="stylesheet" href="ai_analysis.css" />
+</head>
+
+<body>
+  <div class="app">
+
+    <header class="top">
+      <div class="brand">
+        <span class="dot"></span>
+        <span class="name">ZENTASK</span>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <div class="hero">
+        <div class="heroHeader">
+          <div class="greet">Progress</div>
+        </div>
+        <h1 class="title">Your study stats</h1>
+      </div>
+
+      <!-- ✅ SWITCH -->
+      <div class="progressSwitch">
+        <button class="progressSwitchBtn active" id="btnPrgTime">Study time</button>
+        <button class="progressSwitchBtn" id="btnPrgMarks">Paper marks</button>
+      </div>
+
+      <!-- ========================= -->
+      <!-- ✅ ROOM 1: STUDY TIME -->
+      <!-- ========================= -->
+      <div id="progressRoomTime" class="progressRoom active">
+
+        <!-- DAILY -->
+        <section class="p-card">
+
+          <div class="p-head">
+            <div>
+              <div class="p-title">Daily</div>
+              <div class="p-sub">Today</div>
+            </div>
+
+            <div class="p-chip" id="dailyTotal">0 min</div>
+          </div>
+
+          <div class="donutWrap newChart">
+            <div class="ringBox">
+
+              <svg class="pRing" viewBox="0 0 240 240" aria-hidden="true">
+                <defs>
+                  <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow dx="0" dy="10" stdDeviation="12" flood-opacity="0.22" />
+                  </filter>
+                </defs>
+
+                <circle class="pRingBg" cx="120" cy="120" r="86"></circle>
+                <g id="pRingSegments"></g>
+              </svg>
+
+              <button class="ringCenterBtn" id="btnDailyTotal" aria-label="Daily breakdown" type="button">
+                <div class="ringBig" id="dailyTotalBig">0m</div>
+                <div class="ringSmall">Total</div>
+              </button>
+
+            </div>
+          </div>
+
+        </section>
+
+        <!-- WEEKLY -->
+        <section class="p-card">
+
+          <div class="p-head">
+            <div>
+              <div class="p-title">Weekly</div>
+              <div class="p-sub">Last 7 days</div>
+            </div>
+
+            <div class="weeklyRight">
+              <button class="streakBtn" id="prgbtnStreak" aria-label="View streak" type="button">
+                🔥 <span id="prgstreakCount">0</span>
+              </button>
+
+              <div class="p-chip" id="weeklyTotal">0 min</div>
+            </div>
+          </div>
+
+          <div class="bars" id="weeklyBars"></div>
+        </section>
+
+        <!-- AI ANALYSIS -->
+        <section class="p-card aiCard">
+          <div class="p-head">
+            <div>
+              <div class="p-title">AI Analysis</div>
+              <div class="p-sub">Smart insights</div>
+            </div>
+            <div class="aiIcon">✨</div>
+          </div>
+          <div class="aiContent" id="aiContent">
+            <!-- JS will populate this -->
+          </div>
+        </section>
+
+        <!-- ✅ Daily breakdown sheet -->
+        <div class="sheet" id="prgdailySheet" aria-hidden="true">
+          <div class="sheetBackdrop" id="prgdailyBackdrop"></div>
+
+          <div class="sheetCard">
+            <div class="sheetHandle"></div>
+
+            <div class="sheetHeader">
+              <div class="sheetTitle">Daily breakdown</div>
+              <button class="glassIcon" id="prgbtnCloseDaily" type="button">✕</button>
+            </div>
+
+            <div class="sheetList" id="prgdailyBreakdownList"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================= -->
+      <!-- ✅ ROOM 2: PAPER MARKS -->
+      <!-- ========================= -->
+      <div id="progressRoomMarks" class="progressRoom">
+
+        <!-- ✅ Paper Marks Card -->
+        <section class="p-card paperCard" id="paperCard">
+
+          <div class="p-head">
+            <div>
+              <div class="p-title">Paper marks</div>
+              <div class="p-sub">Track your progress per subject</div>
+            </div>
+
+            <div class="paperHeadRight">
+
+              <!-- ✅ SUBJECT PILL -->
+              <button class="subjectPillMini" id="btnPaperSubject" aria-label="Select paper subject" type="button">
+                <span class="pillDot" id="paperSubjectDot"></span>
+                <span class="pillText" id="paperSubjectName">Subject</span>
+                <span class="pillArrow">▾</span>
+              </button>
+
+              <!-- ✅ ADD BUTTON -->
+              <button class="paperActionBtn" id="btnAddPaper" type="button">Add</button>
+
+            </div>
+          </div>
+
+          <!-- chart -->
+          <div class="paperChartWrap">
+            <canvas id="paperChart"></canvas>
+          </div>
+
+          <!-- info -->
+          <div class="paperStatsNew">
+
+            <div class="paperStatCard">
+              <div class="paperStatLabel">Last</div>
+              <div class="paperStatValue" id="paperLast">—</div>
+            </div>
+
+            <div class="paperStatCard">
+              <div class="paperStatLabel">Best</div>
+              <div class="paperStatValue" id="paperBest">—</div>
+            </div>
+
+            <div class="paperStatCard">
+              <div class="paperStatLabel">Avg</div>
+              <div class="paperStatValue" id="paperAvg">—</div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ✅ AI INSIGHT FOR PAPERS -->
+        <section class="p-card aiCard" id="paperAiCard">
+          <div class="p-head">
+            <div>
+              <div class="p-title">AI Insight</div>
+              <div class="p-sub">Strategic feedback</div>
+            </div>
+            <div class="aiIcon">🤖</div>
+          </div>
+          <div class="aiContent" id="paperAiContent">
+            <div style="padding:16px; text-align:center; opacity:0.5; font-size:13px; font-weight:700;">Loading
+              insights...</div>
+          </div>
+        </section>
+
+        <!-- ========================= -->
+        <!-- ✅ Add Paper Sheet -->
+        <!-- ========================= -->
+        <div class="sheet" id="paperSheet" aria-hidden="true">
+          <div class="sheetBackdrop" id="paperBackdrop"></div>
+
+          <div class="sheetCard">
+            <div class="sheetHandle"></div>
+
+            <div class="sheetHeader">
+              <div class="sheetTitle">Add paper marks</div>
+
+              <!-- ✅ ONLY this uses btnClosePaper -->
+              <button class="sheetCloseBtn" id="btnClosePaper" aria-label="Close" type="button">✕</button>
+            </div>
+
+            <div class="paperForm">
+              <label class="paperLabel">Paper name</label>
+              <input class="paperInput" id="inpPaperName" placeholder="Ex: Physics Paper 01" />
+
+              <label class="paperLabel">Marks (0 - 100)</label>
+              <input class="paperInput" id="inpPaperMarks" type="number" min="0" max="100" placeholder="Ex: 78" />
+
+              <label class="paperLabel">Date</label>
+              <div class="dateWrap">
+                <input class="paperInput paperDate" id="inpPaperDate" type="date" />
+                <span class="dateChevron" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" class="dateChevronIcon">
+                    <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </div>
+
+              <button class="glassBtn paperSaveBtn" id="btnSavePaper" type="button">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- ✅ Paper Subject Sheet -->
+        <!-- ✅ (close button REMOVED like you asked) -->
+        <!-- ========================= -->
+        <div class="sheet" id="paperSubjectSheet" aria-hidden="true">
+          <div class="sheetBackdrop" id="paperSubjectBackdrop"></div>
+
+          <div class="sheetCard">
+            <div class="sheetHandle"></div>
+
+            <div class="sheetHeader">
+              <div class="sheetTitle">Select subject</div>
+              <!-- ❌ removed close button -->
+            </div>
+
+            <div class="sheetList" id="paperSubjectList"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottomNav" id="bottomNav">
+      <a class="navBtn active" href="progress.html" data-tab="progress" aria-label="Progress">
+        <svg viewBox="0 0 24 24" class="navIcon" aria-hidden="true">
+          <path d="M4 19V5M4 19H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path d="M7 15l4-4 3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </a>
+
+      <a class="navBtn navCenter" href="../index.html" data-tab="home" aria-label="Pomodoro">
+        <svg viewBox="0 0 24 24" class="navIcon centerIcon" aria-hidden="true">
+          <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M12 22a9 9 0 1 0-9-9 9 9 0 0 0 9 9Z" stroke="currentColor" stroke-width="2" />
+          <path d="M9 2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </a>
+
+      <a class="navBtn" href="../Todo/todo.html" data-tab="todo" aria-label="Todo">
+        <svg viewBox="0 0 24 24" class="navIcon" aria-hidden="true">
+          <path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- ✅ Scripts -->
+  <script src="papers.js"></script>
+  <script src="progress.js"></script>
+  <script src="../nav.js"></script>
+</body>
+
+</html>

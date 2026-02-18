@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#e7e3ff"/>
+  <title>ZENTASK — Tasks</title>
+
+  <link rel="stylesheet" href="../style.css"/>
+  <link rel="stylesheet" href="todo.css"/>
+  <link rel="stylesheet" href="../profile/profile.css"/>
+</head>
+
+<body>
+  <div class="app">
+
+    <header class="top">
+      <div class="brand">
+        <span class="dot"></span>
+        <span class="name">ZENTASK</span>
+      </div>
+
+      <!-- Duolingo widgets -->
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="chip" id="todoBtnStreak" type="button">🔥 <span id="todostreakCount">0</span></button>
+        <div class="chip" id="xpChip">⭐ 0 XP</div>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <div class="hero">
+        <div class="heroHeader">
+          <div class="greet" id="taskGreet">Tasks</div>
+
+          <button class="glassBtn pillSelect" id="btnFilterSubject" aria-label="Choose subject">
+            <span class="pillDot" id="filterDot"></span>
+            <span id="filterName">All</span>
+            <span class="pillChevron">▾</span>
+          </button>
+        </div>
+
+        <h1 class="title" id="taskTitle">Stay consistent.</h1>
+      </div>
+
+      <!-- ✅ SWITCH (Profile / Todo) -->
+      <div class="progressSwitch">
+        <button class="progressSwitchBtn active" id="btnTodoProfile">Profile</button>
+        <button class="progressSwitchBtn" id="btnTodoTasks">Todo</button>
+      </div>
+
+      <!-- ========================= -->
+      <!-- ✅ ROOM 1: PROFILE -->
+      <!-- ========================= -->
+      <div id="todoRoomProfile" class="progressRoom active">
+        <div class="profileScope">
+
+          <div class="page">
+
+            <!-- PROFILE HEADER -->
+            <div class="card profileHeader">
+              <div class="pfpWrap">
+                <img id="profilePic" class="pfp" src="../icon.png" alt="profile" />
+                <button class="pfpEdit" id="changePicBtn">+</button>
+              </div>
+
+              <div class="nameWrap">
+                <div class="name" id="profileName">Your Name</div>
+                <div class="sub">Keep grinding 💪</div>
+              </div>
+            </div>
+
+            <!-- EXAM COUNTDOWN -->
+            <div class="card countdownCard">
+              <div class="cardTitle">Exam Countdown</div>
+
+              <div class="countdownBox">
+                <div class="countNum" id="daysLeft">--</div>
+                <div class="countText">Days left</div>
+              </div>
+
+              <div class="examRow">
+                <div class="examLabel">Exam Date</div>
+                <input type="date" id="examDate" class="examInput" />
+              </div>
+            </div>
+
+            <!-- ACHIEVEMENTS -->
+            <div class="card achCard">
+
+              <div class="achHeader" id="achToggle">
+                <div class="achHeaderLeft">
+                  <div class="cardTitle" style="margin:0;">Achievements</div>
+                  <div class="achMiniText" id="achMiniText">0 completed</div>
+                </div>
+
+                <div class="achHeaderRight">
+                  <span class="chev" id="achChev">▼</span>
+                </div>
+              </div>
+
+              <!-- Collapsed view -->
+              <div class="achCollapsed" id="achCollapsed">
+                <div class="achIconGrid" id="achDoneIcons"></div>
+                <div class="achEmpty" id="achEmpty" style="display:none;">No achievements yet</div>
+              </div>
+
+              <!-- Expanded view -->
+              <div class="achExpanded hidden" id="achExpanded">
+                <div class="achList" id="achievementList"></div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Edit Name Modal -->
+          <div class="modal hidden" id="nameModal">
+            <div class="modalBox">
+              <div class="modalTitle">Edit Profile Name</div>
+
+              <input type="text" id="nameInput" class="modalInput" placeholder="Enter your name" />
+
+              <div class="modalBtns">
+                <button class="mBtn ghost" id="cancelNameBtn">Cancel</button>
+                <button class="mBtn" id="saveNameBtn">Save</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Daily Satisfaction Tracker -->
+          <div class="card satCard">
+
+            <div class="satHeader">
+              <div>
+                <div class="cardTitle" style="margin:0;">Study Satisfaction</div>
+                <div class="achMiniText">How was your study today?</div>
+              </div>
+              <div class="satToday" id="satTodayText">Not rated</div>
+            </div>
+
+            <div class="satEmojis" id="satEmojis">
+              <button class="satBtn" data-val="4">😍</button>
+              <button class="satBtn" data-val="3">🙂</button>
+              <button class="satBtn" data-val="2">😐</button>
+              <button class="satBtn" data-val="1">🙁</button>
+              <button class="satBtn" data-val="0">😭</button>
+            </div>
+
+            <div class="satCalendarHead">
+              <button class="iconBtn small" id="satPrev">‹</button>
+              <div class="satMonth" id="satMonthTitle">Month</div>
+              <button class="iconBtn small" id="satNext">›</button>
+            </div>
+
+            <div class="satWeekdays">
+              <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+
+            <div class="satGrid" id="satGrid"></div>
+
+            <div class="satBanner" id="satBanner">
+              This month you created your <b>0th</b> entry.
+            </div>
+
+            <div class="satStats">
+              <div class="satStat">
+                <div class="statLabel">Average</div>
+                <div class="statValue" id="avgSat">--</div>
+              </div>
+              <div class="satStat">
+                <div class="statLabel">Mood</div>
+                <div class="statValue" id="topMood">--</div>
+              </div>
+              <div class="satStat">
+                <div class="statLabel">Streak</div>
+                <div class="statValue" id="satStreak">--</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Motivation Modal -->
+          <div class="modal hidden" id="motModal">
+            <div class="modalBox">
+              <div class="modalTitle">Hey 💛</div>
+              <div class="motText" id="motText">
+                You’ve been feeling low lately. Want to reset and bounce back tomorrow?
+              </div>
+
+              <div class="modalBtns">
+                <button class="mBtn ghost" id="motCloseBtn">Okay</button>
+                <button class="mBtn" id="motBoostBtn">Motivate me</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- ✅ ROOM 2: TODO TASKS -->
+      <!-- ========================= -->
+      <div id="todoRoomTasks" class="progressRoom">
+
+        <!-- Today Summary Card -->
+        <section class="timer-card">
+          <div class="taskSummaryTop">
+            <div>
+              <div class="cardTitle">Today</div>
+              <div class="cardSub" id="taskSummarySub">0 completed</div>
+            </div>
+
+            <div class="chip" id="taskChip">0 / 5</div>
+          </div>
+
+          <div class="taskProgressRow">
+            <div class="taskProgressTrack">
+              <div class="taskProgressFill" id="taskProgressFill"></div>
+            </div>
+
+            <button class="glassBtn taskAddBtn" id="btnOpenAdd">＋ Add</button>
+          </div>
+        </section>
+
+        <!-- Task List -->
+        <section class="timer-card">
+          <div class="taskListHead">
+            <div class="cardTitle">Your tasks</div>
+            <button class="chip chipDanger" id="btnClearDone">Clear done</button>
+          </div>
+
+          <div class="taskList" id="taskList"></div>
+        </section>
+
+        <!-- Add Task Sheet -->
+        <div class="sheet" id="addSheet" aria-hidden="true">
+          <div class="sheetBackdrop" id="addBackdrop"></div>
+
+          <div class="sheetCard">
+            <div class="sheetHandle"></div>
+
+            <div class="sheetHeader">
+              <div class="sheetTitle">New task</div>
+              <button class="glassIcon" id="btnCloseAdd">✕</button>
+            </div>
+
+            <div class="taskForm">
+              <label>Task name
+                <input type="text" id="inpTaskName" placeholder="ex: Finish Bio essay Q1" maxlength="80"/>
+              </label>
+
+              <div class="taskRow2">
+                <button class="glassBtn taskSubjectBtn" id="btnPickSubject">
+                  <span class="pillDot" id="newTaskDot"></span>
+                  <span id="newTaskSubject">Biology</span>
+                  <span class="pillChevron">▾</span>
+                </button>
+
+                <button class="glassBtn taskTodayBtn" id="btnToggleToday" aria-label="Toggle today task">
+                  <span id="todayState">Today ✅</span>
+                </button>
+              </div>
+
+              <button class="pill taskCreateBtn" id="btnCreateTask">Add task</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subject Sheet -->
+        <div class="sheet" id="subjectSheet" aria-hidden="true">
+          <div class="sheetBackdrop" id="subjectBackdrop"></div>
+
+          <div class="sheetCard">
+            <div class="sheetHandle"></div>
+
+            <div class="sheetHeader">
+              <div class="sheetTitle" id="subjectSheetTitle">Choose subject</div>
+              <button class="glassIcon" id="btnCloseSubject">✕</button>
+            </div>
+
+            <div class="sheetList" id="subjectList"></div>
+            <button class="glassBtn sheetAdd" id="btnAddSubject">＋ Add subject</button>
+          </div>
+        </div>
+
+      </div>
+      <!-- ✅ Universal Clear Sheet -->
+<div class="sheet" id="universalClearSheet" aria-hidden="true">
+  <div class="sheetBackdrop" id="clearBackdrop"></div>
+
+  <div class="sheetCard">
+    <div class="sheetHandle"></div>
+
+    <div class="sheetHeader" style="justify-content:center; text-align:center;">
+      <div style="width:100%;">
+        <div class="sheetTitle" style="font-size:22px; font-weight:1000;">Clear completed?</div>
+        <div class="p-sub" style="margin-top:8px; opacity:0.7;">
+          This will remove all completed tasks.
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:14px; margin-top:16px;">
+      <button class="glassBtn" id="btnClearCancel" style="flex:1; height:52px; border-radius:18px; font-weight:1000;">
+        Cancel
+      </button>
+
+      <button class="pill" id="btnClearConfirm" style="flex:1; height:52px; border-radius:18px; font-weight:1000;">
+        Clear
+      </button>
+    </div>
+  </div>
+</div>
+
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottomNav" id="bottomNav">
+      <a class="navBtn" href="../Progress/progress.html" data-tab="progress" aria-label="Progress">
+        <svg viewBox="0 0 24 24" class="navIcon" aria-hidden="true">
+          <path d="M4 19V5M4 19H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7 15l4-4 3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <a class="navBtn navCenter" href="../index.html" data-tab="home" aria-label="Pomodoro">
+        <svg viewBox="0 0 24 24" class="navIcon centerIcon" aria-hidden="true">
+          <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 22a9 9 0 1 0-9-9 9 9 0 0 0 9 9Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M9 2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </a>
+
+      <a class="navBtn active" href="todo.html" data-tab="todo" aria-label="Todo">
+        <svg viewBox="0 0 24 24" class="navIcon" aria-hidden="true">
+          <path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="todo.js"></script>
+  <script src="../profile/profile.js"></script>
+  <script src="../nav.js"></script>
+</body>
+</html>
